@@ -1,6 +1,6 @@
-# ApexPlanet Data Analytics Internship – Task 1
+# ApexPlanet Data Analytics Internship  Task 1
 
-## Foundational Setup & Exploratory Data Analysis (EDA)
+## Task 1 - Foundational Setup & Exploratory Data Analysis (EDA)
 
 This repository contains my work for **Task 1 of the Data Analytics Internship at ApexPlanet Software Pvt. Ltd.**
 
@@ -223,3 +223,175 @@ APEX-Task1/
 ├── dashboards/
 │
 └── README.md
+
+
+
+## Task 2 — SQL for Data Extraction and Analysis
+
+### Overview
+
+Task 2 focuses on extracting, transforming, and analyzing Superstore sales data using SQL and Python. The cleaned dataset from Task 1 is loaded into a SQLite database and analyzed using SQL queries.
+
+### Objectives
+
+* Store the cleaned Superstore dataset in a SQLite database.
+* Perform SQL-based data extraction and analysis.
+* Use advanced SQL techniques for business analysis.
+* Connect Python with SQLite using SQLAlchemy.
+* Answer business questions using SQL queries.
+* Create reusable database utilities.
+
+### Dataset
+
+The analysis uses the cleaned Superstore sales dataset created during Task 1.
+
+**Dataset:** `data/cleaned_superstore_sales.csv`
+
+The SQLite database contains:
+
+* **Rows:** 10,194
+* **Columns:** 21
+* **Main table:** `sales`
+
+### Technologies Used
+
+* Python
+* Pandas
+* SQL
+* SQLite
+* SQLAlchemy
+* Jupyter Notebook
+* VS Code
+
+### Project Structure
+
+```text
+APEX-Task1/
+│
+├── dashboard/
+│
+├── data/
+│   ├── cleaned_superstore_sales.csv
+│   ├── sample_-_superstore.xls
+│   ├── superstore_sales.csv
+│   └── superstore.db
+│
+├── notebooks/
+│   ├── task1_eda.ipynb
+│   └── task2_python_sql.ipynb
+│
+├── reports/
+│
+├── scripts/
+│   ├── convert_xls_to_csv.py
+│   └── database_utils.py
+│
+├── sql/
+│   └── business_queries.sql
+│
+├── .gitignore
+└── README.md
+```
+
+### Database Setup
+
+The cleaned CSV dataset is loaded into SQLite using Python and SQLAlchemy.
+
+The database contains a main `sales` table with 10,194 records.
+
+The database can be recreated by running:
+
+```bash
+python scripts/database_utils.py
+```
+
+### SQL Concepts Covered
+
+The project demonstrates:
+
+* SELECT statements
+* Filtering with WHERE
+* Sorting with ORDER BY
+* Aggregation with GROUP BY
+* Filtering groups with HAVING
+* INNER JOIN
+* LEFT JOIN
+* Subqueries
+* Common Table Expressions (CTEs)
+* CASE statements
+* ROW_NUMBER()
+* RANK()
+* DENSE_RANK()
+* PARTITION BY
+* LAG()
+* SQL Views
+
+### Business Questions
+
+The SQL analysis addresses the following business questions:
+
+1. Which customers generate the highest sales?
+2. Which products generate the highest revenue?
+3. Which products generate the highest profit?
+4. Which products are causing losses?
+5. Which region generates the most sales?
+6. Which category performs best?
+7. Which customer segment is most profitable?
+8. What is the monthly sales trend?
+9. What is the average order value?
+10. Which customers have high sales but low profit?
+
+### Python and SQL Integration
+
+Python is used to connect to the SQLite database through SQLAlchemy.
+
+Example:
+
+```python
+from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine("sqlite:///../data/superstore.db")
+
+query = """
+SELECT
+    "Category",
+    SUM("Sales") AS total_sales
+FROM sales
+GROUP BY "Category"
+ORDER BY total_sales DESC;
+"""
+
+result = pd.read_sql(query, engine)
+
+result
+```
+
+### Database Utility
+
+The `scripts/database_utils.py` script is used to create the SQLite database from the cleaned CSV dataset.
+
+### Results
+
+The SQL analysis provides insights into:
+
+* Customer sales performance
+* Product revenue and profitability
+* Regional performance
+* Category performance
+* Customer segment performance
+* Monthly sales trends
+* Average order value
+* Loss-making customers and products
+
+### Task 2 Deliverables
+
+* SQLite database
+* SQL business queries
+* Python-SQL integration notebook
+* Reusable database utility
+* Business analysis and insights
+
+### Note
+
+The SQLite database file is generated from the cleaned CSV dataset and is excluded from Git tracking. It can be recreated whenever required using the database utility script.
